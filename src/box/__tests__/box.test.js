@@ -30,4 +30,13 @@ describe('Box#render', () => {
     };
     expect(wrapper.find(View).prop('style')).toEqual(style);
   });
+
+  it('should allow the passing of arbitary styles', () => {
+    wrapper = shallow(<Box style={{ marginTop: 50, flexGrow: 2 }} />);
+    const style = {
+      marginTop: 50,
+      flexGrow: 2,
+    };
+    expect(wrapper.find(View).prop('style')).toEqual(expect.objectContaining(style));
+  });
 });

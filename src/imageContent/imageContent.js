@@ -4,9 +4,9 @@ import { View } from 'react-native';
 import Media from './../media/media';
 import Paragraph from './../paragraph/paragraph';
 
-const positionElement = (position, textSize, color, size, hasRadius) => (
+const positionElement = (position, textSize, color, size, hasRadius, style) => (
   <View style={{ [position]: textSize, flexDirection: 'column', justifyContent: 'center' }}>
-    <Media color={color} size={size} hasRadius={hasRadius} />
+    <Media color={color} size={size} hasRadius={hasRadius} style={style} />
   </View>
 );
 
@@ -36,10 +36,12 @@ function ImageContent({
   width,
   lastLineWidth,
   firstLineWidth,
+  paragraphLineStyle,
+  mediaStyle,
 }) {
   return (
     <View style={{ flexDirection: 'row' }}>
-      {position === 'left' && positionElement('marginRight', textSize, color, size, hasRadius)}
+      {position === 'left' && positionElement('marginRight', textSize, color, size, hasRadius, mediaStyle)}
       <View style={{ flex: 1 }}>
         <Paragraph
           animate={animate}
@@ -50,9 +52,10 @@ function ImageContent({
           lastLineWidth={lastLineWidth}
           firstLineWidth={firstLineWidth}
           lineSpacing={lineSpacing}
+          lineStyle={paragraphLineStyle}
         />
       </View>
-      {position === 'right' && positionElement('marginLeft', textSize, color, size, hasRadius)}
+      {position === 'right' && positionElement('marginLeft', textSize, color, size, hasRadius, mediaStyle)}
     </View>
   );
 }
@@ -69,6 +72,8 @@ ImageContent.propTypes = {
   width: PropTypes.string,
   lastLineWidth: PropTypes.string,
   firstLineWidth: PropTypes.string,
+  paragraphLineStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+  mediaStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
 };
 
 ImageContent.defaultProps = {
@@ -82,6 +87,8 @@ ImageContent.defaultProps = {
   width: '100%',
   lastLineWidth: '100%',
   firstLineWidth: '100%',
+  paragraphLineStyle: null,
+  mediaStyle: null,
 };
 
 export default ImageContent;
